@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shahar.OpenShiftTesting.model.FullNameRequest;
+import com.shahar.OpenShiftTesting.model.FullNameResponse;
 
 @SpringBootApplication
 @RestController
@@ -24,7 +26,10 @@ public class OpenShiftTestingApplication {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, path="/createFullName")
-	public String createFullName(@RequestBody FullNameRequest req) {
-		return req.getFirstName() + " " + req.getLastName();
+	@ResponseBody
+	public FullNameResponse createFullName(@RequestBody FullNameRequest req) {
+		FullNameResponse resp = new FullNameResponse();
+		resp.setFullName(req.getFirstName() + " " + req.getLastName());
+		return resp;
 	}
 }
