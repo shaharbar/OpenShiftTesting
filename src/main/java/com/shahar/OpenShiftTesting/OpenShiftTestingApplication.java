@@ -3,8 +3,11 @@ package com.shahar.OpenShiftTesting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.shahar.OpenShiftTesting.model.FullNameRequest;
 
 @SpringBootApplication
 @RestController
@@ -17,5 +20,10 @@ public class OpenShiftTestingApplication {
 	@RequestMapping(path="/hello")
 	public String hello(@RequestParam(defaultValue="Shahar") String name) {
 		return "Hello " + name + "!";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, path="/createFullName")
+	public String createFullName(FullNameRequest req) {
+		return req.getFirstName() + " " + req.getLastName();
 	}
 }
